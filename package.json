@@ -1,0 +1,123 @@
+{
+  "name": "@online-pdf-compare/react-document-viewer",
+  "version": "1.0.0",
+  "description": "A modern React component library for viewing and comparing PDF documents and images side-by-side",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "homepage": ".",
+  "private": false,
+  "keywords": [
+    "react",
+    "pdf",
+    "viewer",
+    "compare",
+    "document",
+    "image",
+    "pdf.js",
+    "side-by-side",
+    "comparison",
+    "component",
+    "library",
+    "typescript"
+  ],
+  "author": {
+    "name": "Examine Document",
+    "email": "swapnachalla@example.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/swapnachalla/react-document-viewer.git"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "test:coverage": "react-scripts test --coverage --watchAll=false",
+    "test:ci": "CI=true react-scripts test --coverage --watchAll=false",
+    "eject": "react-scripts eject",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "tsc --noEmit --watch",
+    "lint": "echo 'Add ESLint configuration for linting'",
+    "format": "echo 'Add Prettier configuration for formatting'",
+    "prebuild": "npm run type-check && npm run test:ci",
+    "postbuild": "echo 'Build completed successfully!'",
+    "dev": "npm start",
+    "build:lib": "tsc --build tsconfig.lib.json",
+    "clean": "rm -rf dist build coverage"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/**/*.d.ts",
+      "!src/index.tsx",
+      "!src/reportWebVitals.ts",
+      "!src/setupTests.ts"
+    ],
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "functions": 70,
+        "lines": 70,
+        "statements": 70
+      }
+    }
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "dependencies": {
+    "pdfjs-dist": "^3.11.174",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/node": "^18.15.0",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "autoprefixer": "^10.4.14",
+    "jest-environment-jsdom": "^29.5.0",
+    "postcss": "^8.4.24",
+    "react-scripts": "5.0.1",
+    "tailwindcss": "^3.3.2",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
+  }
+}
