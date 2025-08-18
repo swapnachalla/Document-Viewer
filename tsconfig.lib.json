@@ -1,0 +1,24 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "module": "esnext",
+    "target": "es5",
+    "jsx": "react-jsx"
+  },
+  "include": ["src/index.ts"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/App.tsx",
+    "src/setupTests.ts",
+    "src/reportWebVitals.ts"
+  ]
+}

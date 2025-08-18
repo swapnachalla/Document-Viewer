@@ -1,6 +1,6 @@
 import React from 'react';
 import { DocumentCompare } from './components/DocumentCompare';
-
+import './index.css'
 /**
  * Main application component - now just a wrapper around DocumentCompare
  */

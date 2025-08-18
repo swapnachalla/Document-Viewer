@@ -20,14 +20,14 @@ A modern, feature-rich React component library for viewing and comparing PDF doc
 ### Installation
 
 ```bash
-npm install @online-pdf-compare/react-document-viewer
+npm install @swapnachalla/document-viewer
 ```
 
 ### Basic Usage
 
 ```tsx
 import React, { useState } from 'react';
-import { DocumentViewer, DocumentCompare } from '@online-pdf-compare/react-document-viewer';
+import { DocumentViewer, DocumentCompare } from '@swapnachalla/document-viewer';
 
 // Single document viewer
 function SingleViewer() {
@@ -140,7 +140,7 @@ The component uses Tailwind CSS classes. You can customize the appearance by:
 ### Custom Hooks
 
 ```tsx
-import { useDocumentLoader, useDocumentRenderer } from '@online-pdf-compare/react-document-viewer';
+import { useDocumentLoader, useDocumentRenderer } from '@swapnachalla/document-viewer';
 
 function CustomViewer({ url }: { url: string }) {
   const { document, loading, error } = useDocumentLoader(url);
@@ -156,7 +156,7 @@ function CustomViewer({ url }: { url: string }) {
 ### Service Functions
 
 ```tsx
-import { downloadDocument, detectFileType } from '@online-pdf-compare/react-document-viewer';
+import { downloadDocument, detectFileType } from '@swapnachalla/document-viewer';
 
 // Download a document
 await downloadDocument('https://example.com/doc.pdf', document);
@@ -196,7 +196,7 @@ The project maintains high test coverage across:
 
 ```tsx
 import { render, screen, fireEvent } from '@testing-library/react';
-import { DocumentViewer } from '@online-pdf-compare/react-document-viewer';
+import { DocumentViewer } from '@swapnachalla/document-viewer';
 
 test('should handle URL input changes', () => {
   const onPageChange = jest.fn();
@@ -229,7 +229,7 @@ test('should handle URL input changes', () => {
 
 ```bash
 # Clone the repository
-git clone https://github.com/swapnachalla/react-document-viewer.git
+git clone https://github.com/swapnachalla/Document-Viewer.git
 
 # Install dependencies
 npm install
