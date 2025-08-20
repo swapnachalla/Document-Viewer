@@ -1,24 +1,28 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "noEmit": false,
+    "outDir": "dist/esm",
     "declaration": true,
+    "declarationDir": "dist",
     "declarationMap": true,
-    "sourceMap": true,
-    "outDir": "./dist",
-    "module": "esnext",
-    "target": "es5",
-    "jsx": "react-jsx"
+    "emitDeclarationOnly": false,
+    "isolatedModules": false,
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "noEmit": false
   },
-  "include": ["src/index.ts"],
+  "include": [
+    "src/lib/**/*",
+    "src/components/**/*"
+  ],
   "exclude": [
-    "node_modules",
-    "dist",
-    "build",
-    "src/**/*.test.ts",
-    "src/**/*.test.tsx",
     "src/App.tsx",
-    "src/setupTests.ts",
-    "src/reportWebVitals.ts"
+    "src/index.js",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.stories.ts",
+    "**/*.stories.tsx",
+    "dist",
+    "node_modules"
   ]
 }

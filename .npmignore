@@ -1,0 +1,54 @@
+
+# Source files (keep only dist)
+src/
+public/
+build/
+
+# Development files
+.env*
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing
+coverage/
+.nyc_output
+**/*.test.ts
+**/*.test.tsx
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# CI/CD
+.github/
+.travis.yml
+.circleci/
+
+# Config files
+rollup.config.*
+tsconfig.lib.json
+tsconfig.json
+.eslintrc*
+.prettierrc*
+.npmrc
+eslint.config.mjs
+
+# Development dependencies
+node_modules/
+
+# Keep only essential files
+!dist/
+!README.md
+!LICENSE

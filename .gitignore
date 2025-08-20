@@ -37,4 +37,5 @@ Thumbs.db
 *.tmp
 *.temp
 .cache/
+*.tgz
 " >> .gitignore

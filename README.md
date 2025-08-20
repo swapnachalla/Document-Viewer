@@ -1,235 +1,312 @@
-# React Document Viewer & Compare
+# Online PDF Compare
 
-A modern, feature-rich React component library for viewing and comparing PDF documents and images side-by-side. Built with TypeScript, PDF.js, and Tailwind CSS.
+A React component library for viewing and comparing multiple documents side by side. Supports PDF, images, and other document formats with zoom, download, and multi-viewer capabilities.
 
-## ✨ Features
+[![npm version](https://badge.fury.io/js/document-viewer.svg)](https://badge.fury.io/js/document-viewer)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-- 📄 **PDF Support**: View PDF documents with full page navigation
-- 🖼️ **Image Support**: Display various image formats (JPEG, PNG, GIF, WebP)
-- 🔍 **Zoom Controls**: Zoom in, out, and reset functionality
+## Features
+
+- 📄 **Multi-Document Viewer**: View multiple documents simultaneously
+- 🔍 **Zoom Controls**: Zoom in, zoom out, and reset document scale
+- 📥 **Download Support**: Download documents directly from the viewer
 - 📱 **Responsive Design**: Works on desktop, tablet, and mobile devices
-- ⚡ **High Performance**: Optimized rendering with canvas-based display
-- 🔗 **URL Loading**: Load documents from any accessible URL
-- 💾 **Download Support**: Download documents with fallback strategies
-- 🎨 **Customizable**: Flexible configuration and styling options
-- 🔄 **Side-by-Side Comparison**: Compare multiple documents simultaneously
-- 🛡️ **TypeScript**: Full TypeScript support with comprehensive type definitions
+- ⚙️ **Configurable**: Customizable viewer limits and initial settings
+- 🎨 **Modern UI**: Clean, professional interface with smooth animations
 
-## 🚀 Quick Start
-
-### Installation
+## Installation
 
 ```bash
 npm install @swapnachalla/document-viewer
 ```
 
-### Basic Usage
+or
 
-```tsx
-import React, { useState } from 'react';
-import { DocumentViewer, DocumentCompare } from '@swapnachalla/document-viewer';
+```bash
+yarn add @swapnachalla/document-viewer
+```
 
-// Single document viewer
-function SingleViewer() {
-  const [url, setUrl] = useState('');
-  const [scale, setScale] = useState(1.5);
-  const [currentPage, setCurrentPage] = useState(1);
+## Quick Start
 
+```jsx
+import React from 'react';
+import { MultiDocumentViewer } from 'document-viewer';
+import 'document-viewer/dist/index.css';
+
+function App() {
   return (
-    <DocumentViewer
-      url={url}
-      scale={scale}
-      currentPage={currentPage}
-      onPageChange={(viewerId, newPage, newUrl) => {
-        setCurrentPage(newPage);
-        if (newUrl) setUrl(newUrl);
-      }}
-      onZoomChange={(viewerId, delta, isReset) => {
-        setScale(isReset ? delta : scale + delta);
-      }}
-      viewerId={1}
-    />
+    <div className="App">
+      <MultiDocumentViewer />
+    </div>
   );
 }
 
-// Document comparison tool
-function ComparisonTool() {
-  return (
-    <DocumentCompare
-      initialUrls={[
-        'https://example.com/document1.pdf',
-        'https://example.com/document2.pdf'
-      ]}
-      config={{
-        maxZoom: 3.0,
-        minZoom: 0.1,
-        defaultZoom: 1.5,
-        maxViewers: 4,
-        enableDownload: true,
-        enableMultipleViewers: true,
-      }}
-      onDocumentLoad={(viewerId, document) => {
-        console.log(`Document loaded in viewer ${viewerId}`, document);
-      }}
-      onError={(viewerId, error) => {
-        console.error(`Error in viewer ${viewerId}:`, error);
-      }}
-    />
-  );
-}
+export default App;
 ```
 
-## 📖 API Reference
+## Components
 
-### DocumentViewer Props
+### MultiDocumentViewer
 
-| Prop | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `url` | `string` | ✅ | - | Document URL (PDF or image) |
-| `scale` | `number` | ✅ | - | Zoom scale (0.25 - 2.0) |
-| `currentPage` | `number` | ✅ | - | Current page number (PDF only) |
-| `onPageChange` | `function` | ✅ | - | Page/URL change handler |
-| `onZoomChange` | `function` | ✅ | - | Zoom change handler |
-| `viewerId` | `number` | ✅ | - | Unique viewer identifier |
-| `className` | `string` | ❌ | `''` | Additional CSS classes |
-| `showControls` | `boolean` | ❌ | `true` | Show/hide control bar |
-| `showDownload` | `boolean` | ❌ | `true` | Show/hide download button |
+The main component that manages multiple document viewers.
 
-### DocumentCompare Props
+```jsx
+import { MultiDocumentViewer } from 'document-viewer';
 
-| Prop | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `initialUrls` | `string[]` | ❌ | `['', '']` | Initial document URLs |
-| `config` | `DocumentViewerConfig` | ❌ | See below | Viewer configuration |
-| `className` | `string` | ❌ | `''` | Additional CSS classes |
-| `onDocumentLoad` | `function` | ❌ | - | Document load callback |
-| `onError` | `function` | ❌ | - | Error callback |
-
-### DocumentViewerConfig
-
-```typescript
-interface DocumentViewerConfig {
-  maxZoom?: number;          // Maximum zoom level (default: 2.0)
-  minZoom?: number;          // Minimum zoom level (default: 0.25)
-  defaultZoom?: number;      // Default zoom level (default: 1.5)
-  maxViewers?: number;       // Maximum number of viewers (default: 6)
-  corsProxy?: string;        // CORS proxy URL
-  enableDownload?: boolean;  // Enable download functionality (default: true)
-  enableMultipleViewers?: boolean; // Enable multiple viewers (default: true)
-}
-```
-
-## 🎨 Styling
-
-The component uses Tailwind CSS classes. You can customize the appearance by:
-
-1. **Overriding CSS classes**: Pass custom `className` props
-2. **CSS-in-JS**: Use styled-components or emotion
-3. **CSS Modules**: Import custom stylesheets
-4. **Tailwind customization**: Extend Tailwind configuration
-
-```tsx
-<DocumentCompare 
-  className="custom-document-compare border-4 border-blue-500"
-  config={{ enableMultipleViewers: false }}
+<MultiDocumentViewer
+  maxViewers={8}           // Maximum number of viewers (default: 10)
+  initialViewers={2}       // Initial number of viewers (default: 1)
+  allowDynamicAdd={true}   // Allow adding viewers dynamically (default: true)
+  showViewerCount={true}   // Show viewer count and limit (default: true)
 />
 ```
 
-## 🔧 Advanced Usage
+### DocumentViewer
 
-### Custom Hooks
+Individual document viewer component.
 
-```tsx
-import { useDocumentLoader, useDocumentRenderer } from '@swapnachalla/document-viewer';
+```jsx
+import { DocumentViewer } from 'document-viewer';
 
-function CustomViewer({ url }: { url: string }) {
-  const { document, loading, error } = useDocumentLoader(url);
-  const canvasRef = useDocumentRenderer(document, 1.5, 1);
+<DocumentViewer
+  id="viewer-1"
+  initialUrl="https://example.com/document.pdf"
+  onClose={(id) => console.log(`Closed viewer: ${id}`)}
+/>
+```
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+### DocumentZoom
 
-  return <canvas ref={canvasRef} />;
+Standalone zoom controls component.
+
+```jsx
+import { DocumentZoom } from 'document-viewer';
+
+<DocumentZoom
+  scale={1.0}
+  onZoomIn={() => setScale(s => Math.min(s + 0.25, 3.0))}
+  onZoomOut={() => setScale(s => Math.max(s - 0.25, 0.5))}
+  onReset={() => setScale(1.0)}
+  minScale={0.5}
+  maxScale={3.0}
+/>
+```
+
+### DocumentDownload
+
+Standalone download component.
+
+```jsx
+import { DocumentDownload } from 'document-viewer';
+
+<DocumentDownload
+  documentUrl="https://example.com/document.pdf"
+  documentTitle="My Document"
+  onDownload={() => console.log('Document downloaded')}
+/>
+```
+
+## API Reference
+
+### MultiDocumentViewer Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `maxViewers` | `number` | `10` | Maximum number of viewers allowed |
+| `initialViewers` | `number` | `1` | Number of viewers to start with |
+| `allowDynamicAdd` | `boolean` | `true` | Allow users to add/remove viewers |
+| `showViewerCount` | `boolean` | `true` | Show viewer count and limit |
+
+### DocumentViewer Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `id` | `string` | *required* | Unique identifier for the viewer |
+| `initialUrl` | `string` | `""` | Initial document URL to load |
+| `onClose` | `(id: string) => void` | *required* | Callback when viewer is closed |
+
+### DocumentZoom Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `scale` | `number` | *required* | Current scale/zoom level |
+| `onZoomIn` | `() => void` | *required* | Callback for zoom in action |
+| `onZoomOut` | `() => void` | *required* | Callback for zoom out action |
+| `onReset` | `() => void` | *required* | Callback for reset zoom action |
+| `minScale` | `number` | `0.5` | Minimum zoom scale |
+| `maxScale` | `number` | `3.0` | Maximum zoom scale |
+
+### DocumentDownload Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `documentUrl` | `string` | *required* | URL of the document to download |
+| `documentTitle` | `string` | *required* | Title/filename for the download |
+| `onDownload` | `() => void` | `undefined` | Optional callback after download |
+
+## Usage Examples
+
+### Basic Multi-Viewer Setup
+
+```jsx
+import React from 'react';
+import { MultiDocumentViewer } from 'document-viewer';
+import 'document-viewer/dist/index.css';
+
+function DocumentCompareApp() {
+  return (
+    <div style={{ height: '100vh' }}>
+      <MultiDocumentViewer
+        maxViewers={4}
+        initialViewers={2}
+        showViewerCount={true}
+      />
+    </div>
+  );
 }
 ```
 
-### Service Functions
+### Custom Document Viewer
+
+```jsx
+import React, { useState } from 'react';
+import { DocumentViewer, DocumentZoom, DocumentDownload } from 'document-viewer';
+
+function CustomViewer() {
+  const [scale, setScale] = useState(1.0);
+  
+  return (
+    <div>
+      <DocumentViewer
+        id="custom-viewer"
+        initialUrl="https://example.com/sample.pdf"
+        onClose={(id) => console.log(`Viewer ${id} closed`)}
+      />
+      
+      {/* Custom controls */}
+      <div style={{ display: 'flex', gap: '10px', padding: '10px' }}>
+        <DocumentZoom
+          scale={scale}
+          onZoomIn={() => setScale(s => Math.min(s + 0.25, 3.0))}
+          onZoomOut={() => setScale(s => Math.max(s - 0.25, 0.5))}
+          onReset={() => setScale(1.0)}
+        />
+        
+        <DocumentDownload
+          documentUrl="https://example.com/sample.pdf"
+          documentTitle="Sample Document"
+          onDownload={() => alert('Download started!')}
+        />
+      </div>
+    </div>
+  );
+}
+```
+
+### Responsive Layout
+
+```jsx
+import React from 'react';
+import { MultiDocumentViewer } from 'document-viewer';
+
+function ResponsiveApp() {
+  return (
+    <div className="container">
+      <style jsx>{`
+        .container {
+          width: 100%;
+          height: 100vh;
+          padding: 0;
+          margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+          .container {
+            padding: 10px;
+          }
+        }
+      `}</style>
+      
+      <MultiDocumentViewer
+        maxViewers={6}
+        initialViewers={1}
+        allowDynamicAdd={true}
+      />
+    </div>
+  );
+}
+```
+
+## Styling
+
+The library includes default CSS styles. Import the styles in your main application file:
+
+```jsx
+import 'document-viewer/dist/index.css';
+```
+
+### Custom Styling
+
+You can override the default styles by targeting the component classes:
+
+```css
+/* Override viewer header background */
+.viewer-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white;
+}
+
+/* Customize zoom controls */
+.zoom-controls {
+  background-color: #f0f0f0 !important;
+  border-radius: 8px !important;
+}
+
+/* Style add button */
+.add-viewers-btn {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%) !important;
+}
+```
+
+## Supported Formats
+
+The library supports viewing various document formats:
+
+- **PDF files** (.pdf)
+- **Images** (.jpg, .jpeg, .png, .gif, .bmp, .webp)
+- **Web documents** (any URL that can be displayed in an iframe)
+
+## Browser Support
+
+- Chrome 70+
+- Firefox 65+
+- Safari 12+
+- Edge 79+
+
+## TypeScript Support
+
+The library includes TypeScript definitions out of the box. No additional installation required.
 
 ```tsx
-import { downloadDocument, detectFileType } from '@swapnachalla/document-viewer';
+import { MultiDocumentViewer, DocumentViewerProps } from 'document-viewer';
 
-// Download a document
-await downloadDocument('https://example.com/doc.pdf', document);
-
-// Detect file type
-const fileInfo = detectFileType('https://example.com/image.jpg');
-console.log(fileInfo); // { type: 'image', extension: 'jpg' }
+const config: DocumentViewerProps = {
+  id: 'viewer-1',
+  initialUrl: 'https://example.com/doc.pdf',
+  onClose: (id: string) => console.log(id)
+};
 ```
 
-## 🧪 Testing
+## Contributing
 
-The library includes comprehensive tests using Jest and React Testing Library.
+Contributions are welcome! Please read our [contributing guidelines](CONTRIBUTING.md) and [code of conduct](CODE_OF_CONDUCT.md).
 
-### Running Tests
-
-```bash
-# Run all tests
-npm test
-
-# Run tests with coverage
-npm run test:coverage
-
-# Run tests in CI mode
-npm run test:ci
-```
-
-### Test Coverage
-
-The project maintains high test coverage across:
-- ✅ Component rendering and interactions
-- ✅ Hook functionality and state management
-- ✅ Service functions and error handling
-- ✅ Utility functions and edge cases
-- ✅ TypeScript type safety
-
-### Example Test
-
-```tsx
-import { render, screen, fireEvent } from '@testing-library/react';
-import { DocumentViewer } from '@swapnachalla/document-viewer';
-
-test('should handle URL input changes', () => {
-  const onPageChange = jest.fn();
-  
-  render(<DocumentViewer {...props} onPageChange={onPageChange} />);
-  
-  const input = screen.getByPlaceholderText('Enter document URL (PDF or image)');
-  fireEvent.change(input, { target: { value: 'https://example.com/new.pdf' } });
-  
-  expect(onPageChange).toHaveBeenCalledWith(1, 1, 'https://example.com/new.pdf');
-});
-```
-
-## 🌐 Browser Support
-
-- ✅ Chrome 70+
-- ✅ Firefox 65+
-- ✅ Safari 12+
-- ✅ Edge 79+
-- ⚠️ Internet Explorer: Not supported
-
-## 🛠️ Development
-
-### Prerequisites
-
-- Node.js 16+
-- npm 8+
-
-### Local Development
+### Development Setup
 
 ```bash
 # Clone the repository
-git clone https://github.com/swapnachalla/Document-Viewer.git
+git clone https://github.com/swapnachalla/document-viewer.git
+cd document-viewer
 
 # Install dependencies
 npm install
@@ -242,72 +319,26 @@ npm test
 
 # Build for production
 npm run build
-
-# Type checking
-npm run type-check
 ```
 
-### Project Structure
+## License
 
-```
-src/
-├── components/          # React components
-│   ├── DocumentViewer.tsx
-│   ├── DocumentCompare.tsx
-│   └── __tests__/
-├── hooks/              # Custom React hooks
-│   ├── useDocumentLoader.ts
-│   └── useDocumentRenderer.ts
-├── services/           # Business logic services
-│   ├── pdfService.ts
-│   ├── imageService.ts
-│   └── downloadService.ts
-├── utils/              # Utility functions
-│   └── fileUtils.ts
-├── types/              # TypeScript type definitions
-│   └── index.ts
-└── index.ts           # Main library exports
-```
+MIT © [Swapna Challa](https://github.com/swapnachalla)
 
-## 🐛 Known Issues
+## Support
 
-1. **CORS Limitations**: Some external PDFs may not load due to CORS restrictions
-2. **Large File Performance**: Very large PDFs (>50MB) may cause performance issues
-3. **Mobile Zoom**: Touch zoom gestures not yet implemented
-4. **IE Support**: Internet Explorer is not supported
-
-## 🤝 Contributing
-
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### Development Workflow
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/my-feature`
-3. Make changes and add tests
-4. Run tests: `npm test`
-5. Commit changes: `git commit -m 'Add my feature'`
-6. Push to branch: `git push origin feature/my-feature`
-7. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [PDF.js](https://mozilla.github.io/pdf.js/) - PDF rendering engine
-- [React](https://reactjs.org/) - UI library
-- [Tailwind CSS](https://tailwindcss.com/) - Styling framework
-- [TypeScript](https://www.typescriptlang.org/) - Type safety
-
-## 📞 Support
-
-- 📧 Email: contact@onlinepdfcompare.com
 - 🐛 Issues: [GitHub Issues](https://github.com/swapnachalla/document-viewer/issues)
 - 💬 Discussions: [GitHub Discussions](https://github.com/swapnachalla/document-viewer/discussions)
-- 📖 Documentation: [Full Documentation](https://swapnachalla.github.io/document-viewer)
+
+## Changelog
+
+### v1.0.0
+- Initial release
+- Multi-document viewer support
+- Zoom and download functionality
+- Responsive design
+- TypeScript support
 
 ---
 
-Made with ❤️ by the Online PDF Compare Team
+Made with ❤️ by [Swapna Challa](https://github.com/swapnachalla)
