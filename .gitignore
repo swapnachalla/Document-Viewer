@@ -12,7 +12,7 @@ coverage/
 __tests__/
 __mocks__/
 jest.*
-
+src/components/MultiDocumentViewer/Document-Viewer-Test.png
 # Environment
 .env
 .env.local
