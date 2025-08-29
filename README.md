@@ -296,6 +296,8 @@ const config: DocumentViewerProps = {
   onClose: (id: string) => console.log(id)
 };
 ```
+## Test Screenshot
+<img width="1873" height="947" alt="image" src="[https://github.com/user-attachments/assets/4d97dd50-fdc6-4b1d-9b7e-2e73ab484f11](https://github.com/swapnachalla/Document-Viewer/blob/main/src/components/MultiDocumentViewer/Document-Viewer-Test.png)" />
 
 ## Contributing
 
