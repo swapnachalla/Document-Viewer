@@ -344,3 +344,4 @@ MIT © [Swapna Challa](https://github.com/swapnachalla)
 ---
 
 Made with ❤️ by [Swapna Challa](https://github.com/swapnachalla)
+[![Stargazers repo roster for @swapnachalla/Document-Viewer](https://reporoster.com/stars/dark/notext/swapnachalla/Document-Viewer)](https://github.com/swapnachalla/Document-Viewer/stargazers)
